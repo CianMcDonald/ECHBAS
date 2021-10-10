@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <center>
+            <h1>Login</h1>
+            <form method="POST">
+                <br><br>
+                <input type="email" name="email" placeholder="Email Address">
+                <br><br>
+                <input type="password" name="password" placeholder="Password">
+                <br><br>
+                <input type="submit" name="submit">
+            </form>
+            {% if error %}
+                <p class=error><strong>Error:</strong> {{ error }}
+            {% endif %}
+    </center>
+    </body>
+</html>
