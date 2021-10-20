@@ -16,7 +16,7 @@ def calculate_triage(current_injury_submit):
    # print(sname)
    # print(dob)
    # print(gender)
-   # print(medical_history)
+   print(medical_history)
    print(current_injury)
 
 def create_form(fname="", sname="", dob="", gender="", medical_history=""):
