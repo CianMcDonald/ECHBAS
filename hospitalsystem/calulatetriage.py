@@ -1,5 +1,5 @@
 from PIL import Image
-from pyzbar.pyzbar import decode
+from pyzbar.pyzbar import *
 import sqlite3
 import tkinter as tk
 from tkinter import Button, StringVar
