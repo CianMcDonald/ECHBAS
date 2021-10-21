@@ -22,7 +22,7 @@ def QRgen(ppsno, fname, sname):
         border = 5
     )
     #setting the data in qr code
-    qrdata = fname + ", " + sname + ", " + ppsno
+    qrdata = fname + "," + sname + "," + ppsno
     #add the data
     qr.add_data(qrdata)
     #make the qr code
