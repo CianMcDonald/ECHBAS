@@ -18,7 +18,7 @@ def calculate_triage():
    """
    Function thats gets data from form and calculates the patients triage score
    """
-   #store input from form
+   #store input from form and print
    fname = fname_submit.get()
    sname = sname_submit.get()
    dob = dob_submit.get()
