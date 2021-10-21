@@ -4,7 +4,9 @@ import sqlite3
 import tkinter as tk
 from tkinter import Button, StringVar
 
+#initialise tkinter
 master = tk.Tk()
+#create labels 
 tk.Label(master, text="Forename").grid(row=0)
 tk.Label(master, text="Surname").grid(row=1)
 tk.Label(master, text="Date of Birth").grid(row=2)
@@ -13,6 +15,10 @@ tk.Label(master, text="Medical History").grid(row=4)
 tk.Label(master, text="Current Aliment/Injury").grid(row=5)
 
 def calculate_triage():
+   """
+   Function thats gets data from form and calculates the patients triage score
+   """
+   #store input from form
    fname = fname_submit.get()
    sname = sname_submit.get()
    dob = dob_submit.get()
@@ -28,24 +34,33 @@ def calculate_triage():
 
 
 def patient_data():
-   data = decode(Image.open("static/qr_photos/qrdata.png"))
-   new = data[0].data
-   new = new.decode('utf-8')
-   letter_list = new.split(",")
-   #print(letter_list)
-
+   """
+   Function that decodes the QR code and searches for the patients details in the hse's database using their pps number
+   """
+   #decode qr
+   qr_decoded = decode(Image.open("static/qr_photos/qrdata.png"))
+   #get the data values
+   qr_data = qr_decoded[0].data
+   #convert to string
+   qr_data = qr_data.decode('utf-8')
+   #add firtname, surname, ppsno to a list sepertated by commmas
+   letter_list = qr_data.split(",")
+   #assign values to list
    fname = letter_list[0]
    sname = letter_list[1]
    ppsno = letter_list[2]
-
+   #connect to hse database
    connection = sqlite3.connect("hse_data.db")
    cursor = connection.cursor()
+   #get all the patients details with their ppno
    verify_query = "SELECT ppsno, fname, sname, DOB, gender, medical_history FROM medicalrecords WHERE ppsno='"+ ppsno +"'"
    cursor.execute(verify_query)
 
    result = cursor.fetchall()
+   #if they are not in the database, return empty strings
    if len(result) == 0:
       return "", "", "", "", ""
+   #else they are in the database, return their details
    else:
       dob = result[0][3]
       gender = result[0][4]
@@ -53,7 +68,7 @@ def patient_data():
       return fname, sname, dob, gender, medical_history
 
 
-
+#access the entries from the form
 fname_submit = StringVar()
 sname_submit = StringVar()
 dob_submit = StringVar()
@@ -69,7 +84,7 @@ e4 = tk.Entry(master, textvariable=gender_submit)
 e5 = tk.Entry(master, textvariable=medical_history_submit)
 e6 = tk.Entry(master, textvariable=current_injury_submit)
 
-
+#autofill the form using patient details
 fname, sname, dob, gender, medical_history = patient_data()
 
 #where to insert each value
@@ -88,6 +103,7 @@ e4.grid(row=3, column=1)
 e5.grid(row=4, column=1)
 e6.grid(row=5, column=1)
 
+#click the submit button sends the data to calculate the triage
 submitbut = Button(master, text="Submit", width=10, command=calculate_triage)
 submitbut.grid(row=6, column=1)
 
