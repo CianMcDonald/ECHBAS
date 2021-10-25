@@ -38,7 +38,7 @@ def patient_data():
    Function that decodes the QR code and searches for the patients details in the hse's database using their pps number
    """
    #decode qr
-   qr_decoded = decode(Image.open("static/qr_photos/qrdata.png"))
+   qr_decoded = decode(Image.open("./flaskr/static/qr_photos/qrdata.png"))
    #get the data values
    qr_data = qr_decoded[0].data
    #convert to string
@@ -50,7 +50,7 @@ def patient_data():
    sname = letter_list[1]
    ppsno = letter_list[2]
    #connect to hse database
-   connection = sqlite3.connect("hse_data.db")
+   connection = sqlite3.connect("./flaskr/hse_data.db")
    cursor = connection.cursor()
    #get all the patients details with their ppno
    verify_query = "SELECT ppsno, fname, sname, DOB, gender, medical_history FROM medicalrecords WHERE ppsno='"+ ppsno +"'"
