@@ -80,8 +80,8 @@ def key_entered(event):
    """
    # get what letters was entered by person
    entered = e6.get()
-   # if box is blank
-   if entered == '':
+   # if box is blank and backspace is pressed
+   if entered == '' and entered == '<BackSpace>':
       #display entire list
       totallist = ailmentsearch_list
    # else a key has been entered
