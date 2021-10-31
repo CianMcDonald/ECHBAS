@@ -105,12 +105,13 @@ def fillin(event):
    my_listbox = event.widget 
    # get the index of the selection
    my_listbox_index= my_listbox.curselection() 
-   # get the value fo that selection
-   my_listbox_value = my_listbox.get(my_listbox_index[0])
-   # delete whatever is in current ailment
-   e6.delete(0, 'end')
-   # add the newly selected value
-   e6.insert(0, my_listbox_value)
+   if my_listbox_index:
+      # get the value fo that selection
+      my_listbox_value = my_listbox.get(my_listbox_index[0])
+      # delete whatever is in current ailment
+      e6.delete(0, 'end')
+      # add the newly selected value
+      e6.insert(0, my_listbox_value)
 
 def update_list(new_list):
    """
