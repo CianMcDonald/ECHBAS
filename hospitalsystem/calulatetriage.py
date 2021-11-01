@@ -17,25 +17,26 @@ ailmentsearch_list = [ailment_value[0] for ailment_value in list_ailments]
 
 def print_form():
    """
-   Function thats prints data entered in from
+   Function thats validates triage and prints data entered in from
    """
-   #store input from form and print
-   fname = fname_submit.get()
-   sname = sname_submit.get()
-   dob = dob_submit.get()
-   gender = gender_submit.get()
-   medical_history = medical_history_submit.get()
-   current_injury = current_injury_submit.get()
-   triage = triage_submit.get()
-   print(fname)
-   print(sname)
-   print(dob)
-   print(gender)
-   print(medical_history)
-   print(current_injury)
-   print(triage)
-   if not str(triage_submit.get()).isdigit():
+   if not str(triage_submit.get()).isdigit() or int(triage_submit.get()) > 5:
       messagebox.showerror(title="Triage Score Error", message="The value entered into 'Triage Score' is incorrect!")
+   else:
+      #store input from form and print
+      fname = fname_submit.get()
+      sname = sname_submit.get()
+      dob = dob_submit.get()
+      gender = gender_submit.get()
+      medical_history = medical_history_submit.get()
+      current_injury = current_injury_submit.get()
+      triage = triage_submit.get()
+      print(fname)
+      print(sname)
+      print(dob)
+      print(gender)
+      print(medical_history)
+      print(current_injury)
+      print(triage)
 
 def validate_form(event):
    """
