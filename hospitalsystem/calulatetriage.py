@@ -2,7 +2,7 @@ from PIL import Image
 from pyzbar.pyzbar import *
 import sqlite3
 import tkinter as tk
-from tkinter import Button, StringVar, Listbox
+from tkinter import Button, StringVar, IntVar, Listbox, messagebox
 
 #connect to hse database
 connection = sqlite3.connect("ailments.db")
@@ -15,9 +15,9 @@ list_ailments = cursor.fetchall()
 # create a list of the ailments selected from db
 ailmentsearch_list = [ailment_value[0] for ailment_value in list_ailments]
 
-def calculate_triage():
+def print_form():
    """
-   Function thats gets data from form and calculates the patients triage score
+   Function thats prints data entered in from
    """
    #store input from form and print
    fname = fname_submit.get()
@@ -26,16 +26,44 @@ def calculate_triage():
    gender = gender_submit.get()
    medical_history = medical_history_submit.get()
    current_injury = current_injury_submit.get()
+   triage = triage_submit.get()
    print(fname)
    print(sname)
    print(dob)
    print(gender)
    print(medical_history)
    print(current_injury)
+   print(triage)
+   if not str(triage_submit.get()).isdigit():
+      messagebox.showerror(title="Triage Score Error", message="The value entered into 'Triage Score' is incorrect!")
+
+def validate_form(event):
+   """
+   Function that checks if the form is fully filled out
+   """
+   if fname_submit.get() and sname_submit.get() and dob_submit.get() and gender_submit.get() and medical_history_submit.get() and current_injury_submit.get() and triage_submit.get():
+      submitbut.config(state='normal')
+   else:
+      submitbut.config(state='disabled')
+   
+
+
+def calculate_triage():
+   """
+   Function thats gets data from form and calculates the patients triage score
+   """
+   #store input from form and print
+   current_injury = current_injury_submit.get()
    patient_triage_query = "SELECT score FROM ailments WHERE name='"+ current_injury +"'"
    cursor.execute(patient_triage_query)
-   triage_score = cursor.fetchone()
-   print("Triage Score: " + str(triage_score[0]))
+   triage_db_result = cursor.fetchone()
+   if str(triage_db_result[0]).isdigit():
+      triage_score = int(triage_db_result[0])
+      e7.delete(0, 'end')
+      e7.insert(0, triage_score)
+      validate_form(None)
+   else:
+      master.messagebox.showerror(title="Triage Score Error", message="The value entered into Triage Score is incorrect!")
 
 
 def patient_data():
@@ -112,6 +140,7 @@ def fillin(event):
       e6.delete(0, 'end')
       # add the newly selected value
       e6.insert(0, my_listbox_value)
+      calculate_triage()
 
 def update_list(new_list):
    """
@@ -127,13 +156,20 @@ def update_list(new_list):
 #initialise tkinter
 master = tk.Tk()
 
+#Form details
+master.title("Patient Form")
+master.maxsize(800, 600)
+master.config(bg="Light Grey")
+
+
 #create labels 
-tk.Label(master, text="Forename").grid(row=0)
-tk.Label(master, text="Surname").grid(row=1)
-tk.Label(master, text="Date of Birth").grid(row=2)
-tk.Label(master, text="Gender").grid(row=3)
-tk.Label(master, text="Medical History").grid(row=4)
-tk.Label(master, text="Current Aliment").grid(row=5)
+tk.Label(master, text="Forename", bg="Light Grey").grid(row=0)
+tk.Label(master, text="Surname", bg="Light Grey").grid(row=1)
+tk.Label(master, text="Date of Birth", bg="Light Grey").grid(row=2)
+tk.Label(master, text="Gender", bg="Light Grey").grid(row=3)
+tk.Label(master, text="Medical History", bg="Light Grey").grid(row=4)
+tk.Label(master, text="Current Aliment", bg="Light Grey").grid(row=5)
+tk.Label(master, text="Triage Score", bg="Light Grey").grid(row=10)
 
 #access the entries from the form
 fname_submit = StringVar()
@@ -142,6 +178,7 @@ dob_submit = StringVar()
 gender_submit = StringVar()
 medical_history_submit = StringVar()
 current_injury_submit = StringVar()
+triage_submit = StringVar()
 
 #create each entry box for form
 e1 = tk.Entry(master, textvariable=fname_submit)
@@ -150,6 +187,7 @@ e3 = tk.Entry(master, textvariable=dob_submit)
 e4 = tk.Entry(master, textvariable=gender_submit)
 e5 = tk.Entry(master, textvariable=medical_history_submit)
 e6 = tk.Entry(master, textvariable=current_injury_submit)
+e7 = tk.Entry(master, textvariable=triage_submit)
 
 #autofill the form using patient details
 fname, sname, dob, gender, medical_history = patient_data()
@@ -161,20 +199,31 @@ e3.insert(0, dob)
 e4.insert(0, gender)
 e5.insert(0, medical_history)
 
-#where tp place each entry
+#where t0 place each entry
 e1.grid(row=0, column=1)
 e2.grid(row=1, column=1)
 e3.grid(row=2, column=1)
 e4.grid(row=3, column=1)
 e5.grid(row=4, column=1)
 e6.grid(row=5, column=1)
+e7.grid(row=10, column=1)
 
 # when a key is entered related ailments will appear in the list box
 e6.bind('<KeyRelease>', key_entered)
 
+#make sure that there is soemthing entered before we submit
+e1.bind('<KeyRelease>', validate_form)
+e2.bind('<KeyRelease>', validate_form)
+e3.bind('<KeyRelease>', validate_form)
+e4.bind('<KeyRelease>', validate_form)
+e5.bind('<KeyRelease>', validate_form)
+e6.bind('<KeyRelease>', validate_form)
+e7.bind('<KeyRelease>', validate_form)
+
 #click the submit button sends the data to calculate the triage
-submitbut = Button(master, text="Submit", width=10, command=calculate_triage)
+submitbut = Button(master, text="Submit", width=10, command=print_form)
 submitbut.grid(row=10, column=100)
+submitbut.config(state='disabled')
 
 # create the searchable listbox
 listbox = Listbox(master, width=35)
@@ -184,5 +233,6 @@ listbox.grid(row=6, column=1, columnspan=20)
 listbox.bind("<<ListboxSelect>>", fillin)
 # initially update the list with the full list of ailments
 update_list(ailmentsearch_list)
+
 
 tk.mainloop()
