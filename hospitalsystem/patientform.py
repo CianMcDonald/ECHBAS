@@ -15,7 +15,7 @@ list_ailments = cursor.fetchall()
 # create a list of the ailments selected from db
 ailmentsearch_list = [ailment_value[0] for ailment_value in list_ailments]
 
-def print_form():
+def submit_form():
    """
    Function thats validates triage and prints data entered in from
    """
@@ -42,28 +42,32 @@ def validate_form(event):
    """
    Function that checks if the form is fully filled out
    """
+   # make sure something entered is every box
    if fname_submit.get() and sname_submit.get() and dob_submit.get() and gender_submit.get() and medical_history_submit.get() and current_injury_submit.get() and triage_submit.get():
+      # now we can submit
       submitbut.config(state='normal')
    else:
+      # otherwise something is blank so we cannot submit
       submitbut.config(state='disabled')
-   
-
 
 def calculate_triage():
    """
    Function thats gets data from form and calculates the patients triage score
    """
-   #store input from form and print
+   # get triage from db
    current_injury = current_injury_submit.get()
    patient_triage_query = "SELECT score FROM ailments WHERE name='"+ current_injury +"'"
    cursor.execute(patient_triage_query)
    triage_db_result = cursor.fetchone()
+   # if the triage is a number
    if str(triage_db_result[0]).isdigit():
+      # add triage to entry box
       triage_score = int(triage_db_result[0])
       e7.delete(0, 'end')
       e7.insert(0, triage_score)
       validate_form(None)
    else:
+      # triage is not a number so display error
       master.messagebox.showerror(title="Triage Score Error", message="The value entered into Triage Score is incorrect!")
 
 
@@ -222,7 +226,7 @@ e6.bind('<KeyRelease>', validate_form)
 e7.bind('<KeyRelease>', validate_form)
 
 #click the submit button sends the data to calculate the triage
-submitbut = Button(master, text="Submit", width=10, command=print_form)
+submitbut = Button(master, text="Submit", width=10, command=submit_form)
 submitbut.grid(row=10, column=100)
 submitbut.config(state='disabled')
 
