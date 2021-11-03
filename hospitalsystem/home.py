@@ -10,7 +10,7 @@ class MainFrame(tk.Tk):
         tk.Tk.__init__(self)
 
         # Shared title font
-        self.titlefont = font.Font(family = 'Verdana', size=12,
+        self.titlefont = font.Font(family = 'Verdana', size=30,
                                     weight="bold")
         # Controlling Frame
         container = tk.Frame()
@@ -48,9 +48,15 @@ class HomePage(tk.Frame):
         title_label.place(relx=0.15, rely=0.1, relwidth=0.7, relheight=0.2)
         #title_label.pack()
 
-        calculate_triage_button = tk.Button(self, text="Calculate Triage", command = lambda: controller.frame_up("TriagePage"))
-        calculate_triage_button.place(relx=0.15, rely=0.5, relwidth=0.7, relheight=0.2)
+        calculate_triage_button = tk.Button(self, text="Calculate Triage", command = lambda: controller.frame_up("TriagePage"), bg="grey")
+        calculate_triage_button.place(relx=0.15, rely=0.3, relwidth=0.7, relheight=0.15)
         #calculate_triage_button.pack()
+
+        allocate_bed_button = tk.Button(self, text="Allocate Bed", bg="grey")
+        allocate_bed_button.place(relx=0.15, rely=0.5, relwidth=0.7, relheight=0.15)
+
+        edit_queue_button = tk.Button(self, text="Edit Queue", bg="grey")
+        edit_queue_button.place(relx=0.15, rely=0.7, relwidth=0.7, relheight=0.15)
 
 
 class TriagePage(tk.Frame):
