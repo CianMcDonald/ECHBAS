@@ -240,7 +240,7 @@ def run_patientform(root):
    e3.bind('<KeyRelease>', validate_form)
    e4.bind('<KeyRelease>', validate_form)
    e5.bind('<KeyRelease>', validate_form)
-   e6.bind('<KeyRelease>', validate_form)
+   #e6.bind('<KeyRelease>', validate_form)
    e7.bind('<KeyRelease>', validate_form)
 
    #click the submit button sends the data to calculate the triage
