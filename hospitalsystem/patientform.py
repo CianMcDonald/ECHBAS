@@ -1,5 +1,6 @@
 from PIL import Image
-from pyzbar.pyzbar import *
+import pyzbar.pyzbar as pyzbar
+import numpy as np
 import sqlite3
 import cv2
 import tkinter as tk
@@ -79,7 +80,7 @@ def run_patientform():
       """
 
       # WORK IN PROGRESS
-      # #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
+
       # camera_capture = cv2.VideoCapture(0)
       # while True:
       #    success, img = camera_capture.read()
@@ -90,8 +91,20 @@ def run_patientform():
       # cv2.waitKey(1)
       # cv2.destroyAllWindows()
 
-      qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
-            
+
+      cap = cv2.VideoCapture(0)
+      while True:
+         _, frame = cap.read()
+         qr_decoded = pyzbar.decode(frame)
+         for qr in qr_decoded:
+            print(qr.data)
+         cv2.imshow("Frame", frame)
+         k = cv2.waitKey(0)
+         if k == 32:
+            cv2.destroyAllWindows()
+            break
+
+      #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
       #get the data values
       qr_data = qr_decoded[0].data
       #convert to string
