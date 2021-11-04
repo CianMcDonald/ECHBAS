@@ -26,11 +26,11 @@ class HomePage(tk.Tk):
         title_label.place(relx=0.15, rely=0.1, relwidth=0.7, relheight=0.2)
         #title_label.pack()
 
-        calculate_triage_button = tk.Button(self, text="Calculate Triage", command = lambda: self.display_patientform(), bg="grey")
+        calculate_triage_button = tk.Button(self, text="Add Patient", command = lambda: self.display_patientform(), bg="grey")
         calculate_triage_button.place(relx=0.15, rely=0.3, relwidth=0.7, relheight=0.15)
         #calculate_triage_button.pack()
 
-        allocate_bed_button = tk.Button(self, text="Allocate Bed", bg="grey", command=lambda: self.display_assignbed())
+        allocate_bed_button = tk.Button(self, text="Assign Bed to Patient", bg="grey", command=lambda: self.display_assignbed())
         allocate_bed_button.place(relx=0.15, rely=0.5, relwidth=0.7, relheight=0.15)
 
         edit_queue_button = tk.Button(self, text="Edit Queue", bg="grey")
