@@ -1,11 +1,12 @@
-from PIL import Image
+import PIL.Image
 from pyzbar.pyzbar import *
 import sqlite3
 import cv2
+from tkinter import *
+#from tkinter import Button, StringVar, IntVar, Listbox, messagebox
 import tkinter as tk
-from tkinter import Button, StringVar, IntVar, Listbox, messagebox
 
-def run_patientform():
+def run_patientform(root):
    #connect to hse database
    connection = sqlite3.connect("ailments.db")
    cursor = connection.cursor()
@@ -90,7 +91,7 @@ def run_patientform():
       # cv2.waitKey(1)
       # cv2.destroyAllWindows()
 
-      qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
+      qr_decoded = decode(PIL.Image.open("static/qrphotos/qrdata.png"))
             
       #get the data values
       qr_data = qr_decoded[0].data
@@ -174,8 +175,9 @@ def run_patientform():
          listbox.insert('end', item)
 
    #initialise tkinter
-   master = tk.Tk()
-
+   #master = tk.Tk()
+   master = Toplevel(root)
+   
    #Form details
    master.title("Patient Form")
    master.maxsize(800, 600)
@@ -257,4 +259,5 @@ def run_patientform():
    tk.mainloop()
 
 if __name__ == "__main__":
-   run_patientform()
+   main = tk.Tk()
+   run_patientform(main)

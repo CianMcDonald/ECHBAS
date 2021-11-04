@@ -38,7 +38,7 @@ class MainFrame(tk.Tk):
         page.tkraise()
 
     def patientform(self):
-        run_patientform()
+        run_patientform(self)
 
 
 class HomePage(tk.Frame):
