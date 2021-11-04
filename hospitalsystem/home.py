@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import font
-
+from patientform import run_patientform
 class MainFrame(tk.Tk):
     """
     Frame object holdig all pages
@@ -19,7 +19,7 @@ class MainFrame(tk.Tk):
         #Dict "page_name" -> Frame
         self.listing = {}
 
-        for page in (HomePage, TriagePage):
+        for page in (HomePage,TriagePage): #,TriagePage
             # Get classes name
             page_name = page.__name__
             # Create each Page
@@ -37,6 +37,9 @@ class MainFrame(tk.Tk):
         page = self.listing[page_name]
         page.tkraise()
 
+    def patientform(self):
+        run_patientform(self)
+
 
 class HomePage(tk.Frame):
     # Home Page 
@@ -48,7 +51,7 @@ class HomePage(tk.Frame):
         title_label.place(relx=0.15, rely=0.1, relwidth=0.7, relheight=0.2)
         #title_label.pack()
 
-        calculate_triage_button = tk.Button(self, text="Calculate Triage", command = lambda: controller.frame_up("TriagePage"), bg="grey")
+        calculate_triage_button = tk.Button(self, text="Calculate Triage", command = lambda: controller.patientform(), bg="grey")
         calculate_triage_button.place(relx=0.15, rely=0.3, relwidth=0.7, relheight=0.15)
         #calculate_triage_button.pack()
 
@@ -72,8 +75,6 @@ class TriagePage(tk.Frame):
         calculate_triage_button = tk.Button(self, text="Return Home", command = lambda: controller.frame_up("HomePage"))
         calculate_triage_button.place(relx=0.15, rely=0.5, relwidth=0.7, relheight=0.2)
         #calculate_triage_button.pack()
-
-
 
 if __name__ == "__main__":
     app = MainFrame()
