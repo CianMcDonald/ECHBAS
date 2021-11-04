@@ -177,6 +177,7 @@ def run_patientform(root):
    #initialise tkinter
    #master = tk.Tk()
    master = Toplevel(root)
+   master.grab_set()
    
    #Form details
    master.title("Patient Form")
