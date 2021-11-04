@@ -1,6 +1,7 @@
 from PIL import Image
 from pyzbar.pyzbar import *
 import sqlite3
+import cv2
 import tkinter as tk
 from tkinter import Button, StringVar, IntVar, Listbox, messagebox
 
@@ -75,8 +76,21 @@ def patient_data():
    """
    Function that decodes the QR code and searches for the patients details in the hse's database using their pps number
    """
-   #decode qr
-   qr_decoded = decode(Image.open("static/qr_photos/qrdata.png"))
+
+   # WORK IN PROGRESS
+   # #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
+   # camera_capture = cv2.VideoCapture(0)
+   # while True:
+   #    success, img = camera_capture.read()
+   #    for barcode in decode(img):
+   #       data = barcode.data.decode('utf-8')
+   #       print(data)
+   # cv2.imshow('Result', img)
+   # cv2.waitKey(1)
+   # cv2.destroyAllWindows()
+
+   qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
+         
    #get the data values
    qr_data = qr_decoded[0].data
    #convert to string
@@ -238,6 +252,5 @@ listbox.grid(row=6, column=1, columnspan=20)
 listbox.bind("<<ListboxSelect>>", fillin)
 # initially update the list with the full list of ailments
 update_list(ailmentsearch_list)
-
 
 tk.mainloop()
