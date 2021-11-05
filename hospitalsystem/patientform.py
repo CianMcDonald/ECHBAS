@@ -1,4 +1,4 @@
-import pyzbar.pyzbar as pyzbar
+#import pyzbar.pyzbar as pyzbar
 import numpy as np
 import sqlite3
 import cv2
@@ -82,23 +82,24 @@ def run_patientform(root):
       """
       #Boot camera 1 to scan qr code
       #In Linux remove cv2.CAP_DSHOW
-      cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-      data_recieved = None
-      # while no data has been recieved
-      while data_recieved is None:
-         # read in data from the screen
-         done, qr_scanner = cap.read()
-         # decode data when qr is detected
-         qr_decoded = pyzbar.decode(qr_scanner)
-         # for the qr that is decoded 
-         for qr in qr_decoded:   
-            # set data recieved to not none to break loop            
-            data_recieved = qr.data
-            # close camera
-            cv2.destroyAllWindows()
+      # cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+      # data_recieved = None
+      # # while no data has been recieved
+      # while data_recieved is None:
+      #    # read in data from the screen
+      #    done, qr_scanner = cap.read()
+      #    # decode data when qr is detected
+      #    qr_decoded = pyzbar.decode(qr_scanner)
+      #    # for the qr that is decoded 
+      #    for qr in qr_decoded:   
+      #       # set data recieved to not none to break loop            
+      #       data_recieved = qr.data
+      #       # close camera
+      #       cv2.destroyAllWindows()
+      qr_data = b'Katie,Crowdle,119363843F'
       #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
       #get the data values
-      qr_data = qr_decoded[0].data
+      #qr_data = qr_decoded[0].data
       #convert to string
       qr_data = qr_data.decode('utf-8')
       #add firtname, surname, ppsno to a list sepertated by commmas
