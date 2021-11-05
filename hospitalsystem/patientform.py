@@ -1,9 +1,8 @@
-import PIL.Image
-from pyzbar.pyzbar import *
+import pyzbar.pyzbar as pyzbar
+import numpy as np
 import sqlite3
 import cv2
-from tkinter import *
-#from tkinter import Button, StringVar, IntVar, Listbox, messagebox
+from tkinter import Button, StringVar, IntVar, Listbox, messagebox, Toplevel
 import tkinter as tk
 
 def run_patientform(root):
@@ -74,25 +73,27 @@ def run_patientform(root):
          master.messagebox.showerror(title="Triage Score Error", message="The value entered into Triage Score is incorrect!")
 
 
+
    def patient_data():
       """
-      Function that decodes the QR code and searches for the patients details in the hse's database using their pps number
+      Function that boots camera to get qr code, decodes the QR code and searches for the patients details in the hse's database using their pps number
       """
-
-      # WORK IN PROGRESS
-      # #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
-      # camera_capture = cv2.VideoCapture(0)
-      # while True:
-      #    success, img = camera_capture.read()
-      #    for barcode in decode(img):
-      #       data = barcode.data.decode('utf-8')
-      #       print(data)
-      # cv2.imshow('Result', img)
-      # cv2.waitKey(1)
-      # cv2.destroyAllWindows()
-
-      qr_decoded = decode(PIL.Image.open("static/qrphotos/qrdata.png"))
-            
+      #Boot camera 1 to scan qr code
+      cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+      data_recieved = None
+      # while no data has been recieved
+      while data_recieved is None:
+         # read in data from the screen
+         done, qr_scanner = cap.read()
+         # decode data when qr is detected
+         qr_decoded = pyzbar.decode(qr_scanner)
+         # for the qr that is decoded 
+         for qr in qr_decoded:   
+            # set data recieved to not none to break loop            
+            data_recieved = qr.data
+            # close camera
+            cv2.destroyAllWindows()
+      #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
       #get the data values
       qr_data = qr_decoded[0].data
       #convert to string
