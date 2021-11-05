@@ -2,6 +2,7 @@ import pyzbar.pyzbar as pyzbar
 import numpy as np
 import sqlite3
 import cv2
+import time
 from tkinter import Button, StringVar, IntVar, Listbox, messagebox, Toplevel
 import tkinter as tk
 from patient import Patient
@@ -83,48 +84,51 @@ def run_patientform(root):
       #Boot camera 1 to scan qr code
       #In Linux remove cv2.CAP_DSHOW
       cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-      data_recieved = None
+      starttime = time.time()
+      timeopen = 10
       # while no data has been recieved
-      while data_recieved is None:
+      while ((int(time.time() - starttime)) < timeopen):
          # read in data from the screen
          done, qr_scanner = cap.read()
-         # decode data when qr is detected
-         qr_decoded = pyzbar.decode(qr_scanner)
-         # for the qr that is decoded 
-         for qr in qr_decoded:   
-            # set data recieved to not none to break loop            
-            data_recieved = qr.data
-            # close camera
+         if done == True:
+            # decode data when qr is detected
+            qr_decoded = pyzbar.decode(qr_scanner)
+            # for the qr that is decoded 
             cv2.destroyAllWindows()
+         else:
+            cv2.destroyAllWindows()
+            break
       #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
       #get the data values
-      qr_data = qr_decoded[0].data
-      #convert to string
-      qr_data = qr_data.decode('utf-8')
-      #add firtname, surname, ppsno to a list sepertated by commmas
-      letter_list = qr_data.split(",")
-      #assign values to list
-      fname = letter_list[0]
-      sname = letter_list[1]
-      ppsno = letter_list[2]
-      #connect to hse database
-      connection = sqlite3.connect("hse_data.db")
-      cursor = connection.cursor()
-      #get all the patients details with their ppno
-      verify_query = "SELECT ppsno, fname, sname, DOB, gender, medical_history FROM medicalrecords WHERE ppsno='"+ ppsno +"'"
-      cursor.execute(verify_query)
+      if qr_decoded != []:
+         qr_data = qr_decoded[0].data
+         #convert to string
+         qr_data = qr_data.decode('utf-8')
+         #add firtname, surname, ppsno to a list sepertated by commmas
+         letter_list = qr_data.split(",")
+         #assign values to list
+         fname = letter_list[0]
+         sname = letter_list[1]
+         ppsno = letter_list[2]
+         #connect to hse database
+         connection = sqlite3.connect("hse_data.db")
+         cursor = connection.cursor()
+         #get all the patients details with their ppno
+         verify_query = "SELECT ppsno, fname, sname, DOB, gender, medical_history FROM medicalrecords WHERE ppsno='"+ ppsno +"'"
+         cursor.execute(verify_query)
 
-      result = cursor.fetchall()
-      #if they are not in the database, return empty strings
-      if len(result) == 0:
-         return "", "", "", "", ""
-      #else they are in the database, return their details
-      else:
-         dob = result[0][3]
-         gender = result[0][4]
-         medical_history = result[0][5]
-         return fname, sname, dob, gender, medical_history
-      connection.close()
+         result = cursor.fetchall()
+         #if they are not in the database, return empty strings
+         if len(result) == 0:
+            return "", "", "", "", ""
+         #else they are in the database, return their details
+         else:
+            dob = result[0][3]
+            gender = result[0][4]
+            medical_history = result[0][5]
+            return fname, sname, dob, gender, medical_history
+         connection.close()
+      return "", "", "", "", ""
 
    def key_entered(event):
       """
