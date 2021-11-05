@@ -87,7 +87,7 @@ def run_patientform(root):
       starttime = time.time()
       timeopen = 10
       # while no data has been recieved
-      while ((int(time.time() - starttime)) < timeopen):
+      while (int(time.time() - starttime) < timeopen):
          # read in data from the screen
          done, qr_scanner = cap.read()
          if done == True:
