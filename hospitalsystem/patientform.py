@@ -1,13 +1,11 @@
-from PIL import Image
 import pyzbar.pyzbar as pyzbar
 import numpy as np
 import sqlite3
 import cv2
+from tkinter import Button, StringVar, IntVar, Listbox, messagebox, Toplevel
 import tkinter as tk
-import time
-from tkinter import Button, StringVar, IntVar, Listbox, messagebox
 
-def run_patientform():
+def run_patientform(root):
    #connect to hse database
    connection = sqlite3.connect("ailments.db")
    cursor = connection.cursor()
@@ -73,6 +71,7 @@ def run_patientform():
       else:
          # triage is not a number so display error
          master.messagebox.showerror(title="Triage Score Error", message="The value entered into Triage Score is incorrect!")
+
 
 
    def patient_data():
@@ -177,8 +176,10 @@ def run_patientform():
          listbox.insert('end', item)
 
    #initialise tkinter
-   master = tk.Tk()
-
+   #master = tk.Tk()
+   master = Toplevel(root)
+   master.grab_set()
+   
    #Form details
    master.title("Patient Form")
    master.maxsize(800, 600)
@@ -240,7 +241,7 @@ def run_patientform():
    e3.bind('<KeyRelease>', validate_form)
    e4.bind('<KeyRelease>', validate_form)
    e5.bind('<KeyRelease>', validate_form)
-   e6.bind('<KeyRelease>', validate_form)
+   #e6.bind('<KeyRelease>', validate_form)
    e7.bind('<KeyRelease>', validate_form)
 
    #click the submit button sends the data to calculate the triage
@@ -260,4 +261,5 @@ def run_patientform():
    tk.mainloop()
 
 if __name__ == "__main__":
-   run_patientform()
+   main = tk.Tk()
+   run_patientform(main)
