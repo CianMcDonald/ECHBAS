@@ -173,6 +173,8 @@ def run_patientform(root):
          # add it to the listbox at the end
          listbox.insert('end', item)
 
+   form_load = messagebox.askquestion(title="Qr Scan", message="Would you like to scan a QR code?")
+
    #initialise tkinter
    #master = tk.Tk()
    master = Toplevel(root)
@@ -211,19 +213,7 @@ def run_patientform(root):
    e6 = tk.Entry(master, textvariable=current_injury_submit)
    e7 = tk.Entry(master, textvariable=triage_submit)
 
-   #where t0 place each entry
-   e1.grid(row=0, column=1)
-   e2.grid(row=1, column=1)
-   e3.grid(row=2, column=1)
-   e4.grid(row=3, column=1)
-   e5.grid(row=4, column=1)
-   e6.grid(row=5, column=1)
-   e7.grid(row=10, column=1)
-
-   form_load = messagebox.askquestion(title="Qr Scan", message="Does the user have a qr code?")
    if form_load == 'yes':
-      # if user has a QR CODE scan it
-      #messagebox.showinfo(title='Response', message='Please scan qr code now...')
       #autofill the form using patient details
       fname, sname, dob, gender, medical_history = patient_data()
       #where to insert each value
@@ -232,6 +222,15 @@ def run_patientform(root):
       e3.insert(0, dob)
       e4.insert(0, gender)
       e5.insert(0, medical_history)
+
+   #where t0 place each entry
+   e1.grid(row=0, column=1)
+   e2.grid(row=1, column=1)
+   e3.grid(row=2, column=1)
+   e4.grid(row=3, column=1)
+   e5.grid(row=4, column=1)
+   e6.grid(row=5, column=1)
+   e7.grid(row=10, column=1)
 
    # when a key is entered related ailments will appear in the list box
    e6.bind('<KeyRelease>', key_entered)
