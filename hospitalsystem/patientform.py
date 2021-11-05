@@ -223,7 +223,7 @@ def run_patientform(root):
    form_load = messagebox.askquestion(title="Qr Scan", message="Does the user have a qr code?")
    if form_load == 'yes':
       # if user has a QR CODE scan it
-      messagebox.showinfo(title='Response', message='Please scan qr code now...')
+      #messagebox.showinfo(title='Response', message='Please scan qr code now...')
       #autofill the form using patient details
       fname, sname, dob, gender, medical_history = patient_data()
       #where to insert each value
