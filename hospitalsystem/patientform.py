@@ -41,6 +41,7 @@ def run_patientform(root):
          print(current_injury)
          print(triage)
          root.queue.push_queue(Patient(fname, sname, triage))
+         messagebox.showinfo(title="Patient Added", message="The patient has been added to the queue!")
          master.destroy()
 
    def validate_form(event):
