@@ -72,8 +72,6 @@ def run_patientform(root):
          # triage is not a number so display error
          master.messagebox.showerror(title="Triage Score Error", message="The value entered into Triage Score is incorrect!")
 
-
-
    def patient_data():
       """
       Function that boots camera to get qr code, decodes the QR code and searches for the patients details in the hse's database using their pps number
@@ -213,16 +211,6 @@ def run_patientform(root):
    e6 = tk.Entry(master, textvariable=current_injury_submit)
    e7 = tk.Entry(master, textvariable=triage_submit)
 
-   #autofill the form using patient details
-   fname, sname, dob, gender, medical_history = patient_data()
-
-   #where to insert each value
-   e1.insert(0, fname)
-   e2.insert(0, sname)
-   e3.insert(0, dob)
-   e4.insert(0, gender)
-   e5.insert(0, medical_history)
-
    #where t0 place each entry
    e1.grid(row=0, column=1)
    e2.grid(row=1, column=1)
@@ -231,6 +219,19 @@ def run_patientform(root):
    e5.grid(row=4, column=1)
    e6.grid(row=5, column=1)
    e7.grid(row=10, column=1)
+
+   form_load = messagebox.askquestion(title="Qr Scan", message="Does the user have a qr code?")
+   if form_load == 'yes':
+      # if user has a QR CODE scan it
+      messagebox.showinfo(title='Response', message='Please scan qr code now...')
+      #autofill the form using patient details
+      fname, sname, dob, gender, medical_history = patient_data()
+      #where to insert each value
+      e1.insert(0, fname)
+      e2.insert(0, sname)
+      e3.insert(0, dob)
+      e4.insert(0, gender)
+      e5.insert(0, medical_history)
 
    # when a key is entered related ailments will appear in the list box
    e6.bind('<KeyRelease>', key_entered)
