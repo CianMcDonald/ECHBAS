@@ -21,7 +21,7 @@ class HomePage(tk.Tk):
         self.title("Home Page")
         self.display_homepage()
         self.queue = PriorityHeap()
-        self._queue_test()
+        #self._queue_test()
 
         
     def display_homepage(self):
