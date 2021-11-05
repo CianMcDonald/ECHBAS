@@ -15,5 +15,10 @@ class AssignBed(tk.Toplevel):
         title_label = tk.Label(self, text="Next Patient:", font=parent.titlefont)
         title_label.place(relx=0.15, rely=0.1, relwidth=0.7, relheight=0.2)
 
+        #Confirmation
+        title_label = tk.Label(self, text="{} has been allocated a bed and has been removed from queue".format(patient_to_remove), font=parent.textfont)
+        title_label.place(relx=0.0, rely=0.4, relwidth=1, relheight=0.1)
+
+        #Patient to remove
         patient_label = tk.Label(self, text="{}".format(patient_to_remove), font=parent.titlefont, border=3, relief="ridge")
         patient_label.place(relx=0.1, rely=0.5, relwidth=0.8, relheight=0.4)
