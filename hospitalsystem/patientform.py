@@ -4,6 +4,7 @@ import sqlite3
 import cv2
 from tkinter import Button, StringVar, IntVar, Listbox, messagebox, Toplevel
 import tkinter as tk
+from patient import Patient
 
 def run_patientform(root):
    #connect to hse database
@@ -39,6 +40,8 @@ def run_patientform(root):
          print(medical_history)
          print(current_injury)
          print(triage)
+         root.queue.push_queue(Patient(fname, sname, triage))
+         master.destroy()
 
    def validate_form(event):
       """
@@ -77,6 +80,7 @@ def run_patientform(root):
       Function that boots camera to get qr code, decodes the QR code and searches for the patients details in the hse's database using their pps number
       """
       #Boot camera 1 to scan qr code
+      #In Linux remove cv2.CAP_DSHOW
       cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
       data_recieved = None
       # while no data has been recieved
