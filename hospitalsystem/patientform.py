@@ -91,13 +91,15 @@ def run_patientform(root):
          # read in data from the screen
          done, qr_scanner = cap.read()
          if done == True:
+            print(done)
             # decode data when qr is detected
             qr_decoded = pyzbar.decode(qr_scanner)
             # for the qr that is decoded 
             cv2.destroyAllWindows()
          else:
-            cv2.destroyAllWindows()
+            print(done)
             break
+      cap.release()
       #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
       #get the data values
       if qr_decoded != []:
