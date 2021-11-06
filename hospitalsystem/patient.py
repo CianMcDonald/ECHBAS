@@ -12,6 +12,10 @@ class Patient:
     def __lt__ (self, other):
         if self.get_triage_score() < other.get_triage_score():
             return True
+    
+    def __eq__(self, other):
+        if self._fname == other._fname and self._sname == other._sname:
+            return True
 
     def get_fname(self):
         return self._fname
