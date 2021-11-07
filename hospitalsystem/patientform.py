@@ -81,6 +81,15 @@ def run_patientform(root):
       """
       Function that boots camera to get qr code, decodes the QR code and searches for the patients details in the hse's database using their pps number
       """
+      popup = Toplevel(master)
+      #Form details
+      popup.grab_set()
+      popup.title("Scan QR")
+      popup.geometry("1000x1000")
+      popup.config(bg="Light Grey")
+      #create labels 
+      label1 = tk.Label(popup, text="Please Scan QR now...", bg="Light Grey")
+      label1.pack()
       #Boot camera 1 to scan qr code
       #In Linux remove cv2.CAP_DSHOW
       cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -101,6 +110,7 @@ def run_patientform(root):
          # else we have found a qr code
          else:
             break
+      #popup.destroy()
       cap.release()
       #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
       #get the data values
