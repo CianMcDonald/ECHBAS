@@ -33,7 +33,7 @@ def run_patientform(root):
          gender = gender_submit.get()
          medical_history = medical_history_submit.get()
          current_injury = current_injury_submit.get()
-         triage = triage_submit.get()
+         triage = int(triage_submit.get())
          print(fname)
          print(sname)
          print(dob)
@@ -197,7 +197,6 @@ def run_patientform(root):
    master.title("Patient Form")
    master.maxsize(800, 600)
    master.config(bg="Light Grey")
-
 
    #create labels 
    tk.Label(master, text="Forename", bg="Light Grey").grid(row=0)

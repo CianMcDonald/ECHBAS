@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import font
 from tkinter import messagebox
+from edit_queue import EditQueue
 
 from patientform import run_patientform
 from bed_priority_queue import PriorityHeap
@@ -21,7 +22,7 @@ class HomePage(tk.Tk):
         self.title("Home Page")
         self.display_homepage()
         self.queue = PriorityHeap()
-        #self._queue_test()
+        self._queue_test()
 
         
     def display_homepage(self):
@@ -36,7 +37,7 @@ class HomePage(tk.Tk):
         allocate_bed_button = tk.Button(self, text="Assign Bed to Patient", bg="grey", command=lambda: self.display_assignbed(), font=self.textfont)
         allocate_bed_button.place(relx=0.15, rely=0.5, relwidth=0.7, relheight=0.15)
 
-        edit_queue_button = tk.Button(self, text="Edit Queue", bg="grey", font=self.textfont)
+        edit_queue_button = tk.Button(self, text="Edit Queue", bg="grey", command=lambda: self.display_editqueue(), font=self.textfont)
         edit_queue_button.place(relx=0.15, rely=0.7, relwidth=0.7, relheight=0.15)
 
     def display_patientform(self):
@@ -47,12 +48,20 @@ class HomePage(tk.Tk):
         if msg == 'yes':
             window = AssignBed(self, self.queue)
             window.grab_set()
+    
+    def display_editqueue(self):
+        window = EditQueue(self, self.queue)
+        window.grab_set()
 
     def _queue_test(self):
         cian = Patient("cian", "mcdonald", 2)
-        louis = Patient("louis", "sull", 4)
+        katie = Patient("katie", "c", 4)
+        abbie = Patient("abbie", "d", 1)
+        ben = Patient("ben", "p", 3)
         self.queue.push_queue(cian)
-        self.queue.push_queue(louis)
+        self.queue.push_queue(katie)
+        self.queue.push_queue(abbie)
+        self.queue.push_queue(ben)
 
 
 if __name__ == "__main__":
