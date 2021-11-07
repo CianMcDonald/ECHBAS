@@ -186,7 +186,7 @@ def run_patientform(root):
          # add it to the listbox at the end
          listbox.insert('end', item)
 
-   form_load = messagebox.askquestion(title="Qr Scan", message="Would you like to scan a QR code?\nYou will have 10 seconds to scan for one after clicking 'yes'.")
+   form_load = messagebox.askquestion(title="Qr Scan", message="Would you like to scan a QR code?\nYou will have 10 seconds to scan after clicking 'yes'.")
 
    #initialise tkinter
    #master = tk.Tk()
