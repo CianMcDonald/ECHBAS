@@ -84,19 +84,22 @@ def run_patientform(root):
       #Boot camera 1 to scan qr code
       #In Linux remove cv2.CAP_DSHOW
       cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+      # camera boot
       starttime = time.time()
+      # time we want to read for qr
       timeopen = 10
-      # while no data has been recieved
+      # while the time since boot is less than time we want it open
       while (int(time.time() - starttime) < timeopen):
-         # read in data from the screen
-         done, qr_scanner = cap.read()
-         if done == True:
-            # decode data when qr is detected
-            qr_decoded = pyzbar.decode(qr_scanner)
-            # for the qr that is decoded 
-            cv2.destroyAllWindows()
+             # read in data from the screen
+         # scan screen
+         active, qr_scanner = cap.read()
+         # read screen fro qrs to decode
+         qr_decoded = pyzbar.decode(qr_scanner)
+         # if a qr code is not decoded continoue
+         if qr_decoded == []:
+            continue
+         # else we have found a qr code
          else:
-            print(done)
             break
       cap.release()
       #qr_decoded = decode(Image.open("static/qrphotos/qrdata.png"))
@@ -183,7 +186,7 @@ def run_patientform(root):
          # add it to the listbox at the end
          listbox.insert('end', item)
 
-   form_load = messagebox.askquestion(title="Qr Scan", message="Would you like to scan a QR code?")
+   form_load = messagebox.askquestion(title="Qr Scan", message="Would you like to scan a QR code?\nYou will have 10 seconds to scan for one after clicking 'yes'.")
 
    #initialise tkinter
    #master = tk.Tk()
