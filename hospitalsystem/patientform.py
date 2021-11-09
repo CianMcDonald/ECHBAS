@@ -188,18 +188,18 @@ def run_patientform(root):
    
    #Form details
    master.title("Patient Form")
-   master.maxsize(800, 600)
-   master.config(bg="Light Grey")
+   master.maxsize(800, 800)
+   master.config(bg="#0e6556")
 
 
    #create labels 
-   tk.Label(master, text="Forename", bg="Light Grey").grid(row=0)
-   tk.Label(master, text="Surname", bg="Light Grey").grid(row=1)
-   tk.Label(master, text="Date of Birth", bg="Light Grey").grid(row=2)
-   tk.Label(master, text="Gender", bg="Light Grey").grid(row=3)
-   tk.Label(master, text="Medical History", bg="Light Grey").grid(row=4)
-   tk.Label(master, text="Current Aliment", bg="Light Grey").grid(row=5)
-   tk.Label(master, text="Triage Score", bg="Light Grey").grid(row=10)
+   tk.Label(master, text="Forename", bg="#0e6556",fg="white").grid(row=0)
+   tk.Label(master, text="Surname", bg="#0e6556",fg="white").grid(row=1)
+   tk.Label(master, text="Date of Birth", bg="#0e6556",fg="white").grid(row=2)
+   tk.Label(master, text="Gender", bg="#0e6556",fg="white").grid(row=3)
+   tk.Label(master, text="Medical History", bg="#0e6556",fg="white").grid(row=4)
+   tk.Label(master, text="Current Aliment", bg="#0e6556",fg="white").grid(row=5)
+   tk.Label(master, text="Triage Score", bg="#0e6556",fg="white").grid(row=10)
 
    #access the entries from the form
    fname_submit = StringVar()
