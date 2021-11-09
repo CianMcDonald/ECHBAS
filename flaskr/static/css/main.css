@@ -1,0 +1,30 @@
+:root {
+    --hse-green: #6fa491;
+    --hse-red: #af1a40;
+    --background-color: #f0f0f0;
+}
+
+h1 {
+    color: var(--hse-red);
+    font-size:5em;
+}
+
+body {
+    background: var(--background-color)
+}
+
+.login {
+    padding: 4em 0 4em 0;
+    
+}
+
+input[type = submit] {
+    background-color: var(--hse-green);
+    padding: 1em;
+    border-radius: 8px;
+}
+
+input[type=email], input[type=password] {
+    padding: 1em;
+    border-radius: 8px;
+}
