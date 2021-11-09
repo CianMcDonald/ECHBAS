@@ -15,7 +15,7 @@ class AssignBed(tk.Toplevel):
         try:
             if patient_to_remove == "Error: Empty queue":
                 #Title
-                title_label = tk.Label(self, text="ERROR:", font=parent.titlefont, bg="#6fa491")
+                title_label = tk.Label(self, text="ERROR:", font=parent.titlefont, bg="#6fa491", fg="white")
                 title_label.place(relx=0.15, rely=0.1, relwidth=0.7, relheight=0.2)
 
                 #Confirmation
@@ -28,7 +28,7 @@ class AssignBed(tk.Toplevel):
                 
         except AttributeError:
             #Title
-            title_label = tk.Label(self, text="Next Patient:", font=parent.titlefont, bg="#6fa491")
+            title_label = tk.Label(self, text="Next Patient:", font=parent.titlefont, bg="#6fa491", fg="white")
             title_label.place(relx=0.15, rely=0.1, relwidth=0.7, relheight=0.2)
 
             #Confirmation
