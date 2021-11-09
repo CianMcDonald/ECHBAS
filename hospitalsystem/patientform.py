@@ -3,6 +3,7 @@ import numpy as np
 import sqlite3
 import cv2
 import time
+import platform
 from tkinter import Button, StringVar, IntVar, Listbox, messagebox, Toplevel
 import tkinter as tk
 from patient import Patient
@@ -81,18 +82,11 @@ def run_patientform(root):
       """
       Function that boots camera to get qr code, decodes the QR code and searches for the patients details in the hse's database using their pps number
       """
-      # popup = Toplevel(master)
-      # #Form details
-      # popup.grab_set()
-      # popup.title("Scan QR")
-      # popup.geometry("1000x1000")
-      # popup.config(bg="Light Grey")
-      # #create labels 
-      # label1 = tk.Label(popup, text="Please Scan QR now...", bg="Light Grey")
-      # label1.pack()
-      #Boot camera 1 to scan qr code
-      #In Linux remove cv2.CAP_DSHOW
-      cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+      os_used = str(platform.system())
+      if os_used == 'Windows':
+         cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+      else:
+         cap = cv2.VideoCapture(0)
       # camera boot
       starttime = time.time()
       # time we want to read for qr
@@ -205,17 +199,17 @@ def run_patientform(root):
    
    #Form details
    master.title("Patient Form")
-   master.maxsize(800, 600)
-   master.config(bg="Light Grey")
+   master.maxsize(800, 800)
+   master.config(bg="#0e6556")
 
    #create labels 
-   tk.Label(master, text="Forename", bg="Light Grey").grid(row=0)
-   tk.Label(master, text="Surname", bg="Light Grey").grid(row=1)
-   tk.Label(master, text="Date of Birth", bg="Light Grey").grid(row=2)
-   tk.Label(master, text="Gender", bg="Light Grey").grid(row=3)
-   tk.Label(master, text="Medical History", bg="Light Grey").grid(row=4)
-   tk.Label(master, text="Current Aliment", bg="Light Grey").grid(row=5)
-   tk.Label(master, text="Triage Score", bg="Light Grey").grid(row=10)
+   tk.Label(master, text="Forename", bg="#0e6556", fg="white").grid(row=0)
+   tk.Label(master, text="Surname", bg="#0e6556", fg="white").grid(row=1)
+   tk.Label(master, text="Date of Birth", bg="#0e6556", fg="white").grid(row=2)
+   tk.Label(master, text="Gender", bg="#0e6556", fg="white").grid(row=3)
+   tk.Label(master, text="Medical History", bg="#0e6556", fg="white").grid(row=4)
+   tk.Label(master, text="Current Aliment", bg="#0e6556", fg="white").grid(row=5)
+   tk.Label(master, text="Triage Score", bg="#0e6556", fg="white").grid(row=10)
 
    #access the entries from the form
    fname_submit = StringVar()
