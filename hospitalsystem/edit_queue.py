@@ -15,7 +15,7 @@ class EditQueue(tk.Toplevel):
 
     def create_display(self):   
         #Title
-        title_label = tk.Label(self, text="Eqit Queue", font=self.parent.titlefont)
+        title_label = tk.Label(self, text="Edit Queue", font=self.parent.titlefont)
         title_label.place(relx=0.15, rely=0.01, relwidth=0.7, relheight=0.2)
 
         #List
