@@ -7,6 +7,7 @@ from patientform import run_patientform
 from bed_priority_queue import PriorityHeap
 from assign_bed import AssignBed
 from patient import Patient
+
 class HomePage(tk.Tk):
     """
     Frame object holdig all pages

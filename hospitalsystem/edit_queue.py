@@ -11,7 +11,7 @@ class EditQueue(tk.Toplevel):
         self.configure(bg="#F0F0F0", pady=50)
         
         self.queue = queue
-        self.list_name = self.create_queue_list(queue._queue)
+        self.list_name = self.create_queue_list()
         self.parent = parent
         self.create_display()
 
@@ -38,7 +38,8 @@ class EditQueue(tk.Toplevel):
             self.destroy()
 
 
-    def create_queue_list(self, queue):
-        names = [str(patient) for patient in queue]
-        return names
+    def create_queue_list(self):
+        names = self.queue.ordered_list()
+        string_names = [str(patient) for patient in names]
+        return string_names
     
