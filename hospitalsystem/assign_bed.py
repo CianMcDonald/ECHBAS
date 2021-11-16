@@ -6,7 +6,7 @@ class AssignBed(tk.Toplevel):
     def __init__(self, parent, queue):
         super().__init__(parent)
 
-        self.geometry("800x600")
+        self.geometry("1000x800")
         self.title("Assign Bed")
         self.configure(bg="#6fa491", pady=50)
 
