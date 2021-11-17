@@ -23,9 +23,14 @@ class HomePage(tk.Tk):
         self.display_homepage()
         self.queue = PriorityHeap()
         self._queue_test()
+        # print(self.queue.length_of_queue())
+        # print(type(self))
 
         
     def display_homepage(self):
+        # queue_length = tk.Label(self, text="Queue length: %d" % self.queue.length_of_queue())
+        # queue_length.place(relx=0.15, rely=0.1, relwidth=0.7, relheight=0.2)
+
         title_label = tk.Label(self, text="System Home", font=self.titlefont)
         title_label.place(relx=0.15, rely=0.1, relwidth=0.7, relheight=0.2)
         #title_label.pack()
@@ -62,6 +67,7 @@ class HomePage(tk.Tk):
         self.queue.push_queue(katie)
         self.queue.push_queue(abbie)
         self.queue.push_queue(ben)
+
 
 
 if __name__ == "__main__":
