@@ -30,12 +30,15 @@ class EditQueue(tk.Toplevel):
         confrim_button.place(relx=0.6, rely=0.35, relwidth=0.3, relheight=0.15)
 
     def remove_items_selected(self, listbox):
-        msg = tk.messagebox.askquestion("Remove from queue", "Are you sure?")
-        if msg == 'yes':
-            indexs_to_remove = listbox.curselection()
-            names = [self.list_name[x] for x in indexs_to_remove]
-            self.queue.remove_from_queue(names)
-            self.destroy()
+        indexs_to_remove = listbox.curselection()
+        if len(indexs_to_remove) == 0:
+            tk.messagebox.showerror("Error", "No patient selected")
+        else:
+            msg = tk.messagebox.askquestion("Remove from queue", "Are you sure?")
+            if msg == 'yes':
+                names = [self.list_name[x] for x in indexs_to_remove]
+                self.queue.remove_from_queue(names)
+                self.destroy()
 
 
     def create_queue_list(self):
