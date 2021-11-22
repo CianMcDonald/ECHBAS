@@ -105,6 +105,17 @@ class CalculateTriageTest(unittest.TestCase):
         assert calculate_triage(entered) == True
         pass
 
+class PatientLtTest(unittest.TestCase):
+    
+    def triagescore_equal_check_time_in_queue(self):
+        queue = PriorityHeap()
+        cian = Patient("cian", "m", 2, 1)
+        katie = Patient("katie", "c", 2, 2)
+        queue.push_queue(cian)
+        queue.push_queue(katie)
+        test = cian<katie
+        self.assertTrue(test)
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
 
