@@ -90,7 +90,6 @@ class RemoveItemsTest(unittest.TestCase):
         self.assertEqual(starting_queue_length, queue_end.length_of_queue())
 
 class CalculateTriageTest(unittest.TestCase):
-         
     def test_triage_digit(self):
         entered = "1"
         assert calculate_triage(entered) == True

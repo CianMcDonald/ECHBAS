@@ -12,3 +12,4 @@ def calculate_triage(entered):
       else:
          # triage is not a number so display error
          return False
+   
