@@ -8,7 +8,7 @@ def calculate_triage(entered):
       if str(triage_score).isdigit():
           if int(triage_score) <= 5:
          # add triage to entry box
-            return "True"
+            return True
       else:
          # triage is not a number so display error
-         return "False"
+         return False

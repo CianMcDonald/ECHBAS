@@ -1,7 +1,4 @@
 import unittest
-import sys
-from contextlib import contextmanager
-from io import StringIO 
 import sqlite3
 
 from key_entered_test import key_entered
@@ -10,15 +7,6 @@ from remove_items_selected_test import remove_items_selected
 from bed_priority_queue import PriorityHeap
 from patient import Patient
 
-@contextmanager
-def captured_output():
-    new_out, new_err = StringIO(), StringIO()
-    old_out, old_err = sys.stdout, sys.stderr
-    try:
-        sys.stdout, sys.stderr = new_out, new_err
-        yield sys.stdout, sys.stderr
-    finally:
-        sys.stdout, sys.stderr = old_out, old_err
         
 class KeyTest(unittest.TestCase):
 
@@ -105,23 +93,17 @@ class CalculateTriageTest(unittest.TestCase):
          
     def test_triage_digit(self):
         entered = "1"
-        with captured_output() as (out, err): calculate_triage(entered)
-        output = out.getvalue().strip()
-        assert (output == "True")
+        assert calculate_triage(entered) == True
         pass
     
     def test_triage_notdigit(self):
         entered = "fdsd"
-        with captured_output() as (out, err): calculate_triage(entered)
-        output = out.getvalue().strip()
-        assert (output == "False")
+        assert calculate_triage(entered) == False
         pass
     
     def test_triage_lessthandigit(self):
         entered = "5"
-        with captured_output() as (out, err): calculate_triage(entered)
-        output = out.getvalue()
-        assert (output == "True")
+        assert calculate_triage(entered) == True
         pass
 
 if __name__ == '__main__':
