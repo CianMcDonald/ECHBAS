@@ -1,14 +1,24 @@
 # Patient class 
 
 class Patient:
-    def __init__(self, fname, sname, triage_score):
+    def __init__(self, fname, sname, triage_score, time_in_queue=None):
         self._fname = fname
         self._sname = sname
         self._triage_score = triage_score
-        self._time_in_queue = 0
+        if time_in_queue is None:
+            self._time_in_queue = 0
+        else:
+            self._time_in_queue = time_in_queue
 
     def __str__ (self):
         return "{} {}".format(self.get_fname(), self.get_sname())
+
+    # def __lt__ (self, other):
+    #     if self.get_triage_score() < other.get_triage_score():
+    #         return True
+    #     elif self.get_triage_score() == other.get_triage_score():
+    #         if self.get_time_in_queue() < other.get_time_in_queue():
+    #             return True
 
     def __lt__ (self, other):
         if self.get_triage_score() < other.get_triage_score():
@@ -16,6 +26,10 @@ class Patient:
         elif self.get_triage_score() == other.get_triage_score():
             if self.get_time_in_queue() < other.get_time_in_queue():
                 return True
+            else:
+                return False
+        else:
+            return False
     
     def __eq__(self, other):
         if self._fname == other._fname and self._sname == other._sname:
