@@ -64,12 +64,7 @@ def index():
     #Connect to db
         connection = sqlite3.connect("user_data.db")
         cursor = connection.cursor()
-        # get data entered by user
-        email = request.form['email']
-        password = request.form['password']
 
-        # for admin to check in terminal
-        #print(email, password)
         verify_query = """ SELECT (email, password, ppsno, fname, sname) FROM users
                        WHERE email=%s AND password=%s"""
         email_password = (request.form['email'], request.form['password'])
