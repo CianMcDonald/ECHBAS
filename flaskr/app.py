@@ -70,10 +70,11 @@ def index():
 
         # for admin to check in terminal
         #print(email, password)
-
+        verify_query = """ SELECT (email, password, ppsno, fname, sname) FROM users
+                       WHERE email=%s AND password=%s"""
+        email_password = (request.form['email'], request.form['password'])
         # query used to verify that the email and password is in our database
-        verify_query = "SELECT email, password, ppsno, fname, sname FROM users WHERE email='"+ email +"' AND password='"+ password +"'"
-        cursor.execute(verify_query)
+        cursor.execute(verify_query, email_password)
         
         # if the result is zero the passsword/email is incorrect (not in the db)
         result = cursor.fetchall()
