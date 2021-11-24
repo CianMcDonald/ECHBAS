@@ -64,13 +64,12 @@ def index():
     #Connect to db
         connection = sqlite3.connect("user_data.db")
         cursor = connection.cursor()
-
-        verify_query = """ SELECT (email, password, ppsno, fname, sname) FROM users
-                       WHERE email=%s AND password=%s"""
-        email_password = (request.form['email'], request.form['password'])
+        email = request.form['email']
+        password = request.form['password']
         # query used to verify that the email and password is in our database
-        cursor.execute(verify_query, email_password)
-        
+        verify_query = "SELECT email, password, ppsno, fname, sname FROM users WHERE email='"+ email +"' AND password='"+ password +"'"
+        # query used to verify that the email and password is in our database     
+        cursor.execute(verify_query)
         # if the result is zero the passsword/email is incorrect (not in the db)
         result = cursor.fetchall()
         if len(result) == 0:
@@ -92,4 +91,15 @@ def index():
             user_image = 'static/qrphotos/' + qrname
     return render_template(page, user_image=user_image, error=error)
 
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    return render_template('home.html')
+
+@app.route('/info', methods=['GET', 'POST'])
+def info():
+    return render_template('info.html')
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    return render_template('contact.html')
 
