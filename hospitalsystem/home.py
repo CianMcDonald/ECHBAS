@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import font
 from tkinter import messagebox
 from edit_queue import EditQueue
+import names
+from random import randint 
 
 from patientform import run_patientform
 from bed_priority_queue import PriorityHeap
@@ -64,6 +66,13 @@ class HomePage(tk.Tk):
         self.queue.push_queue(katie)
         self.queue.push_queue(abbie)
         self.queue.push_queue(ben)
+        i = 0
+        while i < 100:
+            fname = names.get_first_name()
+            sname = names.get_last_name()
+            triage = randint(0, 5)
+            self.queue.push_queue(Patient(fname, sname, triage))
+            i += 1
 
 
 if __name__ == "__main__":
