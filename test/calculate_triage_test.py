@@ -6,7 +6,7 @@ def calculate_triage(entered):
       triage_score = entered
       # if the triage is a number
       if str(triage_score).isdigit():
-          if int(triage_score) <= 5:
+          if int(triage_score) <= 5 and int(triage_score) >= 1:
          # add triage to entry box
             return True
       else:
